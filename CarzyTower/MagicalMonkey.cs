@@ -13,7 +13,7 @@ namespace Magical Monkey
     /// <summary>
     /// The main class that adds the core tower to the game
     /// </summary>
-    public class CardMonkey : ModTower
+    public class MagicMonkey : ModTower
     {
         // public override string Portrait => "Don't need to override this, using the default of Name-Portrait";
         // public override string Icon => "Don't need to override this, using the default of Name-Icon";
