@@ -8,7 +8,7 @@ using BTD_Mod_Helper.Extensions;
 using CardMonkey.Displays.Projectiles;
 using MelonLoader;
 
-namespace CardMonkey
+namespace Magical Monkey
 {
     /// <summary>
     /// The main class that adds the core tower to the game
