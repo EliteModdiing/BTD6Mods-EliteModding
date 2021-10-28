@@ -19,8 +19,8 @@ namespace CardMonkey.Upgrades.BottomPath
         public override int Tier => 5;
         public override int Cost => 50000;
 
-        public override string DisplayName => "Twist of Fate";
-        public override string Description => "Cards can explode, stun Bloons, and make Bloons give extra money.";
+        public override string DisplayName => "Fire Bombs";
+        public override string Description => "Projectiles can explode, stun Bloons, and make Bloons give extra money.";
 
         public override string Portrait => "CardMonkey-Portrait";
 
@@ -51,7 +51,7 @@ namespace CardMonkey.Upgrades.BottomPath
 
             var blueCard = redCard.Duplicate();
             blueCard.name = "WeaponModel_Blue_card";
-            var bloonImpact = Game.instance.model.GetTower(TowerType.BombShooter, 4);
+            var bloonImpact = Game.instance.model.GetTower(TowerType.WizardMonkey, 4);
             var slowModel = bloonImpact.GetDescendant<SlowModel>().Duplicate();
             var slowModifierForTagModel = bloonImpact.GetDescendant<SlowModifierForTagModel>().Duplicate();
             blueCard.projectile.collisionPasses = new[] {-1, 0};
@@ -69,7 +69,7 @@ namespace CardMonkey.Upgrades.BottomPath
             blueCard.Rate *= 1.2f;
             tower.GetAttackModel().AddWeapon(blueCard);
             
-            var bomb = Game.instance.model.GetTower(TowerType.BombShooter, 3).GetWeapon().projectile.Duplicate();
+            var bomb = Game.instance.model.GetTower(TowerType.WizardMonkey, 0, 1, 0).GetWeapon().projectile.Duplicate();
             var pb = bomb.GetBehavior<CreateProjectileOnContactModel>();
             var sound = bomb.GetBehavior<CreateSoundOnProjectileCollisionModel>();
             var effect = bomb.GetBehavior<CreateEffectOnContactModel>();
