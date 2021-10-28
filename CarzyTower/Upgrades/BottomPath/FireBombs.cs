@@ -26,8 +26,8 @@ namespace CardMonkey.Upgrades.BottomPath
 
         public override void ApplyUpgrade(TowerModel tower)
         {
-            tower.range += 10;
-            tower.GetAttackModel().range += 10;
+            tower.range += 16;
+            tower.GetAttackModel().range += 16;
             
             var redCard = tower.GetWeapon();
             
@@ -65,9 +65,25 @@ namespace CardMonkey.Upgrades.BottomPath
             {
                 blueCard.projectile.ApplyDisplay<BlueCardDisplay>();
             }
-
-            blueCard.Rate *= 1.2f;
-            tower.GetAttackModel().AddWeapon(blueCard);
+            
+            var moneybox = Game.instance.model.GetTower(TowerType.BananaFarm, 0, 0, 0).GetWeapon().projectile.Duplicate(); 
+            moneybox.name = "WeaponModel_Blue_card";
+            var bloonImpact = Game.instance.model.GetTower(TowerType.WizardMonkey, 4);
+            var slowModel = bloonImpact.GetDescendant<SlowModel>().Duplicate();
+            var slowModifierForTagModel = bloonImpact.GetDescendant<SlowModifierForTagModel>().Duplicate();
+            moneybox.projectile.collisionPasses = new[] {-1, 0};
+            moneybox.projectile.AddBehavior(slowModel);
+            moneybox.projectile.AddBehavior(slowModifierForTagModel);
+            if (tower.appliedUpgrades.Contains(UpgradeID<WildCards>()))
+            {
+                moneybox.projectile.ApplyDisplay<BlueWildCardDisplay>();
+            }
+            else
+            {
+                moneybox.projectile.ApplyDisplay<BlueCardDisplay>();
+            }
+            moneybox.Rate *= 1.2f;
+            tower.GetAttackModel().AddWeapon(moneybox);
             
             var bomb = Game.instance.model.GetTower(TowerType.WizardMonkey, 0, 1, 0).GetWeapon().projectile.Duplicate();
             var pb = bomb.GetBehavior<CreateProjectileOnContactModel>();
